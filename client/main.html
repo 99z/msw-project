@@ -1,25 +1,29 @@
 <head>
-  <title>simple</title>
+    <title>Welcome to MSW-Lite!</title>
 </head>
-
 <body>
-  <h1>Welcome to Meteor!</h1>
-
-  {{> hello}}
-  {{> info}}
+    {{> todos}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="todos">
+    {{> addTodo}}
+    <ul>
+        {{#each todo}}
+            {{> todoItem}}
+        {{/each}}
+    </ul>
 </template>
 
-<template name="info">
-  <h2>Learn Meteor!</h2>
-  <ul>
-    <li><a href="https://www.meteor.com/try">Do the Tutorial</a></li>
-    <li><a href="http://guide.meteor.com">Follow the Guide</a></li>
-    <li><a href="https://docs.meteor.com">Read the Docs</a></li>
-    <li><a href="https://forums.meteor.com">Discussions</a></li>
-  </ul>
+<template name="todoItem">
+    <li>
+        {{name}}
+        [<a href="#" class="delete-todo">Delete</a>]
+    </li>
+</template>
+
+<template name="addTodo">
+    <form>
+        Create a task:
+        <input type="text" placeholder="Type a task here..." name = "todoName">
+    </form>
 </template>

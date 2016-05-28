@@ -1,22 +1,37 @@
-import { Template } from 'meteor/templating';
-import { ReactiveVar } from 'meteor/reactive-var';
+if(Meteor.isClient){
+    // client code goes here
+}
 
-import './main.html';
+if(Meteor.isServer){
+    // server code goes here
+}
 
-Template.hello.onCreated(function helloOnCreated() {
-  // counter starts at 0
-  this.counter = new ReactiveVar(0);
+Template.todos.helpers({
+    'todo': function() {
+        return Todos.find({}, {sort: {createdAt: -1}});
+    }
 });
 
-Template.hello.helpers({
-  counter() {
-    return Template.instance().counter.get();
-  },
+Template.addTodo.events({
+    'submit form': function(event){
+        event.preventDefault();
+        var todoName = $('[name="todoName"]').val();
+        Todos.insert({
+            name: todoName,
+            completed: false,
+            createdAt: new Date()
+        });
+        $('[name="todoName"]').val('');
+    }
 });
 
-Template.hello.events({
-  'click button'(event, instance) {
-    // increment the counter when button is clicked
-    instance.counter.set(instance.counter.get() + 1);
-  },
+Template.todoItem.events({
+    'click .delete-todo': function(event){
+        event.preventDefault();
+        var documentId = this._id;
+        var confirm = window.confirm("Delete this task?");
+        if(confirm){
+            Todos.remove({_id: documentId});
+        }
+    }
 });
