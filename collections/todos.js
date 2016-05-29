@@ -1,1 +1,1 @@
-Todos = new Mongo.Collection('todos');
+Pages = new Mongo.Collection('pages');

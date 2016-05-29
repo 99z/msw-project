@@ -21,3 +21,8 @@ autopublish             # Publish all data to the clients (for prototyping)
 insecure                # Allow all DB writes from clients (for prototyping)
 iron:router
 accounts-password
+accounts-facebook
+service-configuration
+stevezhu:fbgraph
+accounts-ui
+session

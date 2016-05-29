@@ -1,34 +1,3 @@
-<template name="todos">
-    {{> addTodo}}
-    <ul>
-        {{#each todo}}
-            {{> todoItem}}
-        {{/each}}
-    </ul>
-    {{> todosCount}}
-</template>
-
-<template name="todoItem">
-    <li class="{{checked}}">
-        <input type="checkbox" {{checked}}>
-        <input type="text" value="{{name}}" name="todoItem">
-        [<a href="#" class="delete-todo">Delete</a>]
-    </li>
-</template>
-
-<template name="addTodo">
-    <form>
-        Create a task:
-        <input type="text" placeholder="Type a task here..." name = "todoName">
-    </form>
-</template>
-
-<template name="todosCount">
-    {{#if totalTodos}}
-        <p>You have completed {{completedTodos}} out of {{totalTodos}} tasks.</p>
-    {{/if}}
-</template>
-
 <template name="home">
     <p>Welcome to MSW-Lite!</p>
 </template>
@@ -51,6 +20,20 @@
     </form>
 </template>
 
+<template name="pages">
+    <h2>Write a new post</h2>
+    <ul>
+    {{#each page}}
+            <li><a href="/page/{{id}}">{{name}}</a></li>
+    {{/each}}
+    </ul>
+</template>
+
+<template name="pageView">
+    <h2>Create a new post</h2>
+    <a href="#" class="publishpost">click me</a>
+</template>
+
 <template name="main">
     <h1>MSW-Lite</h1>
     {{> navigation}}
@@ -63,7 +46,9 @@
     <ul>
         <li><a href="{{pathFor route='home'}}">Home</a></li>
         {{#if currentUser}}
+            <li><a href="{{pathFor route='pages'}}">Pages</a></li>
             <li><a href="#" class="logout">Logout</a></li>
+            <li><a href="#" class="fblogin">Login with Facebook</a></li>
         {{else}}
             <li><a href="{{pathFor route='register'}}">Register</a></li>
             <li><a href="{{pathFor route='login'}}">Login</a></li>
