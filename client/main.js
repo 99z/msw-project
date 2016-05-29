@@ -42,7 +42,7 @@ Template.login.events({
 
 Template.pageView.events({
     'click .publishpost': function(event) {
-        Meteor.call("publishPost", function(error, accessToken) {
+        Meteor.call("publishPost", this.id, function(error, accessToken) {
             if (error) {
                 console.log(error.reason);
             } else {
@@ -68,20 +68,16 @@ Template.pages.created = function() {
 Template.pages.helpers({
     'page': function() {
         Template.instance().pages.get().forEach(function(item) {
-            Pages.insert({
-                name: item.name,
-                id: item.id
-            });
+            if (!Pages.findOne({name: item.name})) {
+                Pages.insert({
+                    name: item.name,
+                    id: item.id
+                });
+            }
         });
         return Template.instance().pages.get();
     }
 });
-
-Template.pageView.helpers({
-    'name': function() {
-        return this.params.name;
-    }
-})
 
 Template.navigation.events({
     'click .logout': function(event) {
@@ -97,6 +93,7 @@ Template.navigation.events({
             if (error)
                 Session.set('errorMessage', error.reason || "Unknown error");
         });
+        Router.go('pages');
     }
 });
 
@@ -115,6 +112,10 @@ Router.route('/', {
     template: 'home'
 });
 
-Router.route('/page/:name', {
-    template: 'pageView'
+Router.route('/page/:id', {
+    template: 'pageView',
+    data: function() {
+        var currentPage = String(this.params.id);
+        return Pages.findOne({id: this.params.id});
+    }
 });

@@ -24,15 +24,15 @@ Meteor.startup(() => {
             return result.data;
         },
 
-        "publishPost": function() {
+        "publishPost": function(pageID) {
             var token_request = { fields: "access_token" };
             var getATSync = Meteor.wrapAsync(FBGraph.get);
-            var pageAT = getATSync("1361541427195119", token_request);
+            var pageAT = getATSync(pageID, token_request);
 
             console.log(pageAT.access_token);
 
-            var args = { access_token: pageAT.access_token, message: "test post 3"};
-            FBGraph.post("1361541427195119/feed", args, function(err, res) {
+            var args = { access_token: pageAT.access_token, message: "test post 4"};
+            FBGraph.post(pageID + "/feed", args, function(err, res) {
                 if (err) {
                     console.log(err);
                 } else {
