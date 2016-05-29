@@ -24,14 +24,14 @@ Meteor.startup(() => {
             return result.data;
         },
 
-        "publishPost": function(pageID) {
+        "publishPost": function(pageID, postcontent) {
             var token_request = { fields: "access_token" };
             var getATSync = Meteor.wrapAsync(FBGraph.get);
             var pageAT = getATSync(pageID, token_request);
 
             console.log(pageAT.access_token);
 
-            var args = { access_token: pageAT.access_token, message: "test post 4"};
+            var args = { access_token: pageAT.access_token, message: postcontent};
             FBGraph.post(pageID + "/feed", args, function(err, res) {
                 if (err) {
                     console.log(err);

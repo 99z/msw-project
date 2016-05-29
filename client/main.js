@@ -41,8 +41,10 @@ Template.login.events({
 });
 
 Template.pageView.events({
-    'click .publishpost': function(event) {
-        Meteor.call("publishPost", this.id, function(error, accessToken) {
+    'submit .new-post': function(event) {
+        event.preventDefault();
+        var content = event.target.postcontent.value;
+        Meteor.call("publishPost", this.id, content, function(error, accessToken) {
             if (error) {
                 console.log(error.reason);
             } else {

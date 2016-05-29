@@ -31,7 +31,10 @@
 
 <template name="pageView">
     <h2>Make a post as {{name}}</h2>
-    <a href="#" class="publishpost">click me</a>
+    <form class="new-post">
+        <textarea rows="4" cols="50" name="postcontent" placeholder="Type your post here!"></textarea>
+        <p><input type="submit" value="Submit post"></p>
+    </form>
 </template>
 
 <template name="main">
