@@ -1,5 +1,13 @@
+
 <template name="home">
-    <p>Welcome to MSW-Lite!</p>
+    <h2>Welcome to MSW Lite!</h2>
+    {{#if currentUser}}
+        <p>Log in to Facebook using the link in the navbar.</p>
+        <p>Then, check out your <a href="{{pathFor route='pages'}}">pages!</a></p>
+    {{else}}
+        <p>It appears you are not logged in. Did you want to <a href="{{pathFor route='login'}}">log in</a>?</p>
+        <p>If you don't have account, feel free to <a href="{{pathFor route='register'}}">register!</a></p>
+    {{/if}}
 </template>
 
 <template name="register">
@@ -7,7 +15,7 @@
     <form class="register">
         <p>Username: <input type="username" name="username"></p>
         <p>Password: <input type="password" name="password"></p>
-        <p><input type="submit" value="Register"></p>
+        <button type="submit" class="btn btn-raised btn-primary">REGISTER</button>
     </form>
 </template>
 
@@ -16,7 +24,7 @@
     <form class="login">
         <p>Username: <input type="username" name="username"></p>
         <p>Password: <input type="password" name="password"></p>
-        <p><input type="submit" value="Login"></p>
+        <button type="submit" class="btn btn-raised btn-primary">LOGIN</button>
     </form>
 </template>
 
@@ -31,30 +39,54 @@
 
 <template name="pageView">
     <h2>Make a post as {{name}}</h2>
-    <form class="new-post">
-        <textarea rows="4" cols="50" name="postcontent" placeholder="Type your post here!"></textarea>
-        <p><input type="submit" value="Submit post"></p>
+    <form class="form-horizontal new-post">
+      <fieldset>
+        <div class="form-group">
+          <div class="col-md-10">
+            <textarea class="form-control" id="postArea" name="postcontent" rows="3" placeholder="Start writing your post here"></textarea>
+            <span class="help-block">Enter the text for your post here, then click "PUBLISH".</span>
+            <br />
+          </div>
+        </div>
+      </fieldset>
+      <button type="submit" class="btn btn-raised btn-danger pull-right">PUBLISH</button>
     </form>
 </template>
 
 <template name="main">
-    <h1>MSW-Lite</h1>
     {{> navigation}}
-    {{> yield}}
+    <div class="container">
+        {{> yield}}
+    </div>
     <hr />
-    <p>Copyright &copy; MSW-Lite, 2016</p>
+    <div class="container">
+        <p>Copyright &copy; MSW Lite, 2016</p>
+    </div>
 </template>
 
 <template name="navigation">
-    <ul>
-        <li><a href="{{pathFor route='home'}}">Home</a></li>
-        {{#if currentUser}}
-            <li><a href="{{pathFor route='pages'}}">Pages</a></li>
-            <li><a href="#" class="logout">Logout</a></li>
-            <li><a href="#" class="fblogin">Login with Facebook</a></li>
-        {{else}}
-            <li><a href="{{pathFor route='register'}}">Register</a></li>
-            <li><a href="{{pathFor route='login'}}">Login</a></li>
-        {{/if}}
-    </ul>
+    <div class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="{{pathFor route='home'}}">MSW Lite</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-responsive-collapse">
+          <ul class="nav navbar-nav">
+            {{#if currentUser}}
+                <li><a href="{{pathFor route='pages'}}">Pages</a></li>
+                <li><a href="#" class="logout">Logout</a></li>
+                <li><a href="#" class="fblogin">FB Login</a></li>
+            {{else}}
+                <li><a href="{{pathFor route='register'}}">Register</a></li>
+                <li><a href="{{pathFor route='login'}}">Login</a></li>
+            {{/if}}
+          </ul>
+        </div>
+      </div>
+    </div>
 </template>

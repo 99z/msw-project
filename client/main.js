@@ -51,6 +51,7 @@ Template.pageView.events({
                 console.log(accessToken);
             }
         });
+        $("#postArea").attr("placeholder", "Posted! Got more to say?").val("").focus().blur();
     }
 });
 

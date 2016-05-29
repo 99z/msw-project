@@ -33,6 +33,7 @@ email@1.0.12
 es5-shim@4.5.10
 facebook@1.2.6
 fastclick@1.0.11
+fezvrasta:bootstrap-material-design@0.5.9
 geojson-utils@1.0.8
 hot-code-push@1.0.4
 html-tools@1.0.9
@@ -92,6 +93,7 @@ stevezhu:fbgraph@2.0.0
 templating@1.1.9
 templating-tools@1.0.4
 tracker@1.0.13
+twbs:bootstrap@3.3.6
 ui@1.0.11
 underscore@1.0.8
 url@1.0.9
